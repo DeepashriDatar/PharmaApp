@@ -75,18 +75,22 @@ export class ProductDetails extends Component {
 
   render() {
     return (
-      <div>
-        <h3> Product Details </h3>
+      <div className='container my-3'>
+          <h3> Product Details </h3>
 
-        <div className='row'>                        
+        <div className='row'> 
+                       
           {this.state.products.map((element)=>{
             
             return(
             <div className='col-md-4' key={element.id}>
                 <Product  
-                name={`${element.name}, (Rs.  ${element.price} )` }
-                description = {element.description}
+                name={`${element?.name ? element.name.length > 40 ? element.name.slice(0,40) : element.name: ""} (Rs.  ${element.price} )` }                
+                //title={!element?.title ? element.title.length > 40 ? element.title.slice(0,40) : element.title: ""} 
+                description={element.description ? element.description !== null ? element.description.length > 60 ? element.description.slice(0,60) : element.description : "": ""}                 
                 imgUrl={element.image} 
+                productId={element.id}
+                //wholeProduct={element}
                 />
             </div>
             )
