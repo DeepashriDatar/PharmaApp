@@ -1,13 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react';
 
-export class Home extends Component {
-  render() {
+
+const Home = ()=> {
     return (
       <div>
         <h2> Welcome to Pharma App</h2>
       </div>
     )
   }
-}
 
-export default Home
+  export default Home;

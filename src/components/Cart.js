@@ -1,13 +1,51 @@
-import React, { Component } from 'react'
+// import React, { Component } from 'react'
 
-export class Cart extends Component {
-  render() {
-    return (
-      <div>
-        <h3>This is my cart</h3>
-      </div>
-    )
-  }
-}
+// export default function Cart() {
+  
+//     return (
+//       <div>
+//         <h3>This is my cart</h3>
+//       </div>
+//     )
+//   }
 
-export default Cart
+
+// //export default Cart
+
+
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Cart = ({ cart, removeFromCart }) => {
+  return (
+    <div className="container">
+      <h2>Shopping Cart</h2>
+      {cart && cart.length === 0 ? (
+        <img src="/images/empty_cart.jpg" className="d-block w-100" alt="Empty Cart" />
+      ) : (
+        <ul className="list-group">
+          {cart && cart.map((item, index) => (
+            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+              <span>{item.name} - ${item.price} (x{item.quantity})</span>
+              <button className="btn btn-danger btn-sm" onClick={() => removeFromCart(item.id)}>
+                <i className="fas fa-trash-alt"></i>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+Cart.propTypes = {
+  cart: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired
+  })).isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+};
+
+export default Cart;
