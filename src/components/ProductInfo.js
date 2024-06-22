@@ -1,24 +1,34 @@
-import React, { Component } from 'react'
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
-export class ProductInfo extends Component {
-    myFunction = () => {
-        alert('Function called!');
-      };
-    
+const ProductInfo=()=>{
+    const {id}=useParams();
 
-  render() {
-    
-    let {wholeproduct} = this.props;
-    let defaultImg = "https://dims.apnews.com/dims4/default/e9dd673/2147483647/strip/true/crop/8640x4860+0+450/resize/1440x810!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F8e%2Fec%2Fa444ae76cdd64fa9ad5f2c67460a%2F67e4f10f96a042c3969c3797a50e9fa1"
+    const [prodData,setprodData]=useState({});
 
-    
-    return (
-        console.log({wholeproduct}),
-        <div className="card" style={{width: "18rem" }}>
-        <h2> prod info 00000000000 </h2>
-      </div>
+    useEffect(()=>{
+      fetch("http://localhost:8080/products?id="+id).then((res) => {
+        return res.json();
+      }).then((data) => {
+        setprodData(data[0]);
+        console.log(prodData);
+      }).catch((err) => {
+        console.error('Error fetching data: ', err);
+      });
+    },[]);
+
+    return(
+        <div className="card">
+            <h2>Product Info : {prodData.name}</h2>
+            <br></br>
+            <h3> Description: {prodData.description}</h3>
+            <h3> Current price: {prodData.price}</h3>       
+
+             <br></br>
+            <Link className="btn btn-primary" to="/product-details">Product List</Link>
+            {/* <link className="btn btn-danger" to="/product-details">Back to Product List</link>   */}
+         </div>
     )
-  }
 }
 
-export default ProductInfo
+export default ProductInfo;

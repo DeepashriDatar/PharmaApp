@@ -40,7 +40,7 @@ const AppRouter = () => {
                   <Link className="nav-link" to="/">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/product-list">Product List</Link>
+                  <Link className="nav-link" to="/product-details">Product List</Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to="/cart">Cart ({cart.reduce((acc, item) => acc + item.quantity, 0)})</Link>
@@ -51,8 +51,8 @@ const AppRouter = () => {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/product-details/:id" element={<ProductInfo addToCart={addToCart} />} />
-          <Route path="/product-list" element={<ProductDetails addToCart={addToCart} />} />
+          <Route path="/product-info/:id" element={<ProductInfo addToCart={addToCart} />} />
+          <Route path="/product-details" element={<ProductDetails addToCart={addToCart} />} />
           <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
         </Routes>
       </div>

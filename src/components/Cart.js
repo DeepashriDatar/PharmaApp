@@ -1,51 +1,49 @@
-// import React, { Component } from 'react'
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-// export default function Cart() {
-  
-//     return (
-//       <div>
-//         <h3>This is my cart</h3>
-//       </div>
-//     )
-//   }
+const Cart = () => {
 
+  const [cartData, setCart] = useState([]);
 
-// //export default Cart
+  useEffect(() => {
+    fetch("http://localhost:8080/cart").then((res) => {
+      return res.json();
+    }).then((data) => {
+      setCart(data);
+    }).catch((err) => {
+      console.error('Error fetching data: ', err);
+    });
+  }, []);
 
-
-import React from 'react';
-import PropTypes from 'prop-types';
-
-const Cart = ({ cart, removeFromCart }) => {
   return (
-    <div className="container">
-      <h2>Shopping Cart</h2>
-      {cart && cart.length === 0 ? (
-        <img src="/images/empty_cart.jpg" className="d-block w-100" alt="Empty Cart" />
-      ) : (
-        <ul className="list-group">
-          {cart && cart.map((item, index) => (
-            <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
-              <span>{item.name} - ${item.price} (x{item.quantity})</span>
-              <button className="btn btn-danger btn-sm" onClick={() => removeFromCart(item.id)}>
-                <i className="fas fa-trash-alt"></i>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
-};
+    <div className='container my-3'>
+    <h3> My Cart Details </h3>
+ <div className='row'> 
+                 
+    {cartData.map((element)=>{
+      
+      return(
+      <div className='col-md-4' key={element.id}>
+       <div className="card" style={{width: "18rem" }}>
+          {/* <img src={!element.image ? defaultImg: element.image} className="card-img-top" alt="..." /> */}
+              <div className="card-body">
+                
+              <h5 className="card-title">
+                  {`${element?.name ? element.name.length > 40 ? element.name.slice(0,40) : element.name: ""} (Rs.  ${element.price} )` }                    
+              </h5> 
+                  
+                
+                  <p className="card-text"> {element.description}... </p>
+                
+            </div>
+        </div>
 
-Cart.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired
-  })).isRequired,
-  removeFromCart: PropTypes.func.isRequired,
-};
+      </div>
+      )
+    })} 
+  </div>
+</div>
+  )
+}
 
 export default Cart;
