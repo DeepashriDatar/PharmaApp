@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
 import ProductInfo from './components/ProductInfo';
@@ -6,24 +6,17 @@ import ProductDetails from './components/ProductDetails';
 import Cart from './components/Cart';
 
 const AppRouter = () => {
-  const [cart, setCart] = useState([]);
+  const [cartData, setCart] = useState([]);
 
-  const addToCart = (product) => {
-    setCart(prevCart => {
-      const existingProductIndex = prevCart.findIndex(item => item.id === product.id);
-      if (existingProductIndex !== -1) {
-        const updatedCart = [...prevCart];
-        updatedCart[existingProductIndex].quantity += 1;
-        return updatedCart;
-      } else {
-        return [...prevCart, { ...product, quantity: 1 }];
-      }
+  useEffect(() => {
+    fetch("http://localhost:8080/cart").then((res) => {
+      return res.json();
+    }).then((data) => {
+      setCart(data);
+    }).catch((err) => {
+      console.error('Error fetching data: ', err);
     });
-  };
-
-  const removeFromCart = (productId) => {
-    setCart(prevCart => prevCart.filter(product => product.id !== productId));
-  };
+  }, []);
 
   return (
     <Router>
@@ -43,7 +36,7 @@ const AppRouter = () => {
                   <Link className="nav-link" to="/product-details">Product List</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/cart">Cart ({cart.reduce((acc, item) => acc + item.quantity, 0)})</Link>
+                  <Link className="nav-link" to="/cart">Cart ({cartData? cartData.length: 0})</Link>
                 </li>
               </ul>
             </div>
@@ -51,9 +44,9 @@ const AppRouter = () => {
         </nav>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/product-info/:id" element={<ProductInfo addToCart={addToCart} />} />
-          <Route path="/product-details" element={<ProductDetails addToCart={addToCart} />} />
-          <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} />} />
+          <Route path="/product-info/:id" element={<ProductInfo  />} />
+          <Route path="/product-details" element={<ProductDetails  />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>
     </Router>

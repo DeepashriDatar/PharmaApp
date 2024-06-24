@@ -26,7 +26,7 @@ const ProductInfo=()=>{
 
              <br></br>
             <Link className="btn btn-primary" to="/product-details">Product List</Link>
-            {/* <link className="btn btn-danger" to="/product-details">Back to Product List</link>   */}
+            
          </div>
     )
 }
