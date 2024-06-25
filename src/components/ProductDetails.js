@@ -80,7 +80,7 @@ const ProductDetails = () => {
   return (
     <div className='container my-3'>
       <br></br>
-      <h3> Product Details </h3>
+      <h3> Product List</h3>
       <div className='row'>
       <div className="col-md-5">
         <input
