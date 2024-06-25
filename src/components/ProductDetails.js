@@ -32,9 +32,7 @@ const ProductDetails = () => {
         return;
       }
       else{
-        var curProd = products.find((element) => element.id === id);
-        console.log(curProd);
-    
+        var curProd = products.find((element) => element.id === id);    
         fetch("http://localhost:8080/cart", {
           method: 'POST',
           headers: {

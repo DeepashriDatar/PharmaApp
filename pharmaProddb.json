@@ -59,16 +59,22 @@
   ],
   "cart": [
     {
-      "id": "1",
-      "name": "Akloflam TZ 100mg/2mg Tablet",
-      "price": 350,
-      "description": "Akloflam TZ 100mg/2mg Tablet. dkjfk, skdhf fisojff eilsjf sf."
-    },
-    {
       "id": "3",
       "name": "Cefigram 25mg Oral Drops",
       "price": 89,
       "description": "Cefigram 25mg Oral Drops. Drops djfhdhf, skdhf fisojff eilsjf sf."
+    },
+    {
+      "id": "8",
+      "name": "Moxikor 5% Eye Drop",
+      "price": 205,
+      "description": "Moxikor 5% Eye Drop"
+    },
+    {
+      "id": "7",
+      "name": "Fusicor 2% Cream",
+      "price": 150,
+      "description": "Fusicor 2% Cream. Cream jjj, skdhf fisojff eilsjf sf."
     }
   ]
 }
