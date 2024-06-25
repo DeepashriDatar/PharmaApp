@@ -1,5 +1,4 @@
 import React, {useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
 
 const ProductDetails = ({addTocart})=> {
@@ -20,6 +19,24 @@ const ProductDetails = ({addTocart})=> {
     navigate("/product-info/"+id);
   }
 
+  const addToCart = (id) => {
+    var curProd = products.find((element) => element.id === id);
+    console.log(curProd);
+
+    fetch("http://localhost:8080/cart",{
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({id:curProd.id, name:curProd.name, price:curProd.price, description:curProd.description})
+    }).then((res)=>{
+      return res.json();
+    }).then((data)=>{
+      alert("Item added to cart successfully");
+    }).catch((err)=>{
+      console.error('Error fetching data: ', err);
+    });
+  }
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('price-asc');
 
@@ -32,6 +49,7 @@ const ProductDetails = ({addTocart})=> {
   
     return (
       <div className='container my-3'>
+          <br></br>
           <h3> Product Details </h3>
 
           <div className="col-md-6">
@@ -56,15 +74,6 @@ const ProductDetails = ({addTocart})=> {
             
             return(
             <div className='col-md-4' key={element.id}>
-                {/* <Product  
-                name={`${element?.name ? element.name.length > 40 ? element.name.slice(0,40) : element.name: ""} (Rs.  ${element.price} )` }                
-                //title={!element?.title ? element.title.length > 40 ? element.title.slice(0,40) : element.title: ""} 
-                description={element.description ? element.description !== null ? element.description.length > 60 ? element.description.slice(0,60) : element.description : "": ""}                 
-                imgUrl={element.image} 
-                productId={element.id}
-                wholeProduct={element}
-                /> */}
-
               <div className="card" style={{width: "18rem" }}>
                 <img src={!element.image ? defaultImg: element.image} className="card-img-top" alt="..." />
                     <div className="card-body">
@@ -79,10 +88,10 @@ const ProductDetails = ({addTocart})=> {
                           Details
                           </button>
 
-                        {/* <button className="btn btn-primary" onClick={() => {addToCart}}>
+                        <button className="btn btn-primary" onClick={() => {addToCart(element.id)}}>
                           Add to Cart
                         </button>
-                   */}
+                  
                   </div>
               </div>
 
@@ -92,9 +101,6 @@ const ProductDetails = ({addTocart})=> {
         </div>
       </div>
   );
-};
-ProductDetails.propTypes = {
-  addToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
