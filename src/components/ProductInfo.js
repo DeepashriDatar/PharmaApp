@@ -66,7 +66,7 @@ const ProductInfo = () => {
           <br></br>
           <br></br>
           <button className="btn btn-primary" onClick={() => addToCart(prodData.id)}>Add to Cart</button>
-          <Link className="btn btn-primary" to="/product-details" style={{ float: "right" }}>Product List</Link>
+          <Link className="btn btn-primary" to="/product-details" style={{ float: "right" }}> Back to Product List</Link>
           <br></br>
           <br></br>
         </div>
