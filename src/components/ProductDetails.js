@@ -109,9 +109,10 @@ const ProductDetails = () => {
         {productsToShow.map((element) => {
 
           return (
-            <div className='col-md-4' key={element.id}>
-              <div className="card" style={{ width: "18rem" }}>
-                <img src={!element.image ? defaultImg : element.image} className="card-img-top" alt="..." />
+            <div className='col-md-3' key={element.id}>
+              <div className="card" style={{ width: "18rem", height: "33rem"}}>
+                <img src={!element.image ? defaultImg : element.image} className="card-img-top" alt="..." 
+                style={{ width: "18rem", height: "18rem"}} />
                 <div className="card-body">
 
                   <h5 className="card-title">
@@ -119,18 +120,18 @@ const ProductDetails = () => {
                   </h5>
 
 
-                  <p className="card-text"> {element.description}... </p>
+                  <p className="card-text"> {`${element.description? element.description.length > 70 ? element.description.slice(0,70) : element.description :""}`}... </p>
                   <button className="btn btn-primary" onClick={() => { showDetails(element.id) }}>
                     Details
                   </button>
-
-                  <button className="btn btn-primary" onClick={() => { addToCart(element.id) }}>
+                
+                  <button className="btn btn-primary" onClick={() => { addToCart(element.id) }} style={{float:"right"}}>
                     Add to Cart
                   </button>
 
                 </div>
               </div>
-
+              
             </div>
           )
         })}
