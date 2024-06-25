@@ -22,22 +22,35 @@ const ProductDetails = () => {
   }
 
   const addToCart = (id) => {
-    var curProd = products.find((element) => element.id === id);
-    console.log(curProd);
 
-    fetch("http://localhost:8080/cart", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ id: curProd.id, name: curProd.name, price: curProd.price, description: curProd.description })
-    }).then((res) => {
+    fetch('http://localhost:8080/cart').then((res) => {
       return res.json();
     }).then((data) => {
-      alert("Item added to cart successfully");
-    }).catch((err) => {
-      console.error('Error fetching data: ', err);
+      var prodExist = data.find((element) => element.id === id);
+      if (prodExist) {
+        alert("Product is already exist in the cart");
+        return;
+      }
+      else{
+        var curProd = products.find((element) => element.id === id);
+        console.log(curProd);
+    
+        fetch("http://localhost:8080/cart", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: curProd.id, name: curProd.name, price: curProd.price, description: curProd.description })
+        }).then((res) => {
+          return res.json();
+        }).then((data) => {
+          alert("Item added to cart successfully");
+        }).catch((err) => {
+          console.error('Error fetching data: ', err);
+        });        
+      }
     });
+
   }
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState('name-asc');
