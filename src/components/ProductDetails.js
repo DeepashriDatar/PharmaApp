@@ -81,8 +81,8 @@ const ProductDetails = () => {
     <div className='container my-3'>
       <br></br>
       <h3> Product Details </h3>
-
-      <div className="col-md-6">
+      <div className='row'>
+      <div className="col-md-5">
         <input
           type="text"
           className="form-control"
@@ -91,7 +91,7 @@ const ProductDetails = () => {
           onChange={(e) => addFilter(e.target.value)}
         />
       </div>
-      <div className="col-md-6">
+      <div className="col-md-5">
         <select className="form-control" value={sort} onChange={(e) => sortData(e.target.value)}>
 
           <option value="name-asc">Sort by Name: A-Z</option>
@@ -100,8 +100,11 @@ const ProductDetails = () => {
           <option value="price-desc">Sort by Price: High to Low</option>
         </select>
       </div>
-
-      <br></br>
+      <div className="col-md-2">
+        <button className="btn btn-primary" onClick={() => addFilter('')}>Clear Filter</button>
+        </div>
+        </div>
+        <br></br>
       <br></br>
 
       <div className='row'>
@@ -110,7 +113,7 @@ const ProductDetails = () => {
 
           return (
             <div className='col-md-3' key={element.id}>
-              <div className="card" style={{ width: "18rem", height: "33rem"}}>
+              <div className="card" style={{ width: "18rem", height: "31rem"}}>
                 <img src={!element.image ? defaultImg : element.image} className="card-img-top" alt="..." 
                 style={{ width: "18rem", height: "18rem"}} />
                 <div className="card-body">
